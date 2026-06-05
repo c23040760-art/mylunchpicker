@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今天吃什么</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #fce4ec);
+            color: #333;
+            text-align: center;
+            padding: 60px;
+        }
+        h1 {
+            font-size: 42px;
+            color: #222;
+            margin-bottom: 30px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: white;
+            margin: 10px auto;
+            padding: 15px 25px;
+            border-radius: 8px;
+            width: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 20px;
+        }
+        button {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1976D2;
+        }
+        #result {
+            margin-top: 40px;
+            font-size: 28px;
+            color: #222;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>今天吃什么？</h1>
+    <ul id="food-list">
+        <li>兰州拉面</li>
+        <li>老上海</li>
+        <li>万阿姨</li>
+        <li>螺蛳粉</li>
+        <li>猪脚饭</li>
+        <li>喵小咖</li>
+        <li>牛蛙饭</li>
+        <li>海南鸡</li>
+        <li>七饱饱</li>
+        <li>一楼饭</li>
+        <li>馄饨</li>
+        <li>重庆小面</li>
+        <li>坤坤大人</li>
+        <li>过桥米线</li>
+    </ul>
+
+    <button onclick="pickRandom()">随机抽取</button>
+
+    <div id="result"></div>
+
+    <script>
+        function pickRandom() {
+            const foods = [
+                "兰州拉面", "老上海", "万阿姨", "螺蛳粉",
+                "猪脚饭", "喵小咖", "牛蛙饭", "海南鸡",
+                "七饱饱", "一楼饭", "馄饨", "重庆小面",
+                "坤坤大人", "过桥米线"
+            ];
+            const randomIndex = Math.floor(Math.random() * foods.length);
+            const chosenFood = foods[randomIndex];
+            document.getElementById('result').innerText = '今天你可以吃：' + chosenFood;
+        }
+    </script>
+
+</body>
+</html>
