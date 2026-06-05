@@ -1,94 +1,273 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>今天吃什么</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: linear-gradient(to right, #e0f7fa, #fce4ec);
-            color: #333;
-            text-align: center;
-            padding: 60px;
-        }
-        h1 {
-            font-size: 42px;
-            color: #222;
-            margin-bottom: 30px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            background: white;
-            margin: 10px auto;
-            padding: 15px 25px;
-            border-radius: 8px;
-            width: 50%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            font-size: 20px;
-        }
-        button {
-            background-color: #2196F3;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #1976D2;
-        }
-        #result {
-            margin-top: 40px;
-            font-size: 28px;
-            color: #222;
-            font-weight: bold;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>今日决策助手</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Microsoft YaHei",sans-serif;
+    background:linear-gradient(135deg,#eef2ff,#f8fafc);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:520px;
+    background:white;
+    border-radius:24px;
+    padding:30px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.08);
+}
+
+.title{
+    text-align:center;
+    font-size:32px;
+    font-weight:bold;
+    margin-bottom:35px;
+    color:#222;
+}
+
+.card{
+    margin-bottom:30px;
+}
+
+.card h2{
+    text-align:center;
+    margin-bottom:15px;
+    color:#555;
+}
+
+button{
+    width:100%;
+    border:none;
+    padding:16px;
+    border-radius:14px;
+    background:#4f46e5;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#4338ca;
+}
+
+.result{
+    margin-top:18px;
+    height:80px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f8faff;
+    border-radius:14px;
+    font-size:30px;
+    font-weight:bold;
+    color:#222;
+    overflow:hidden;
+}
+
+.spinning{
+    animation:pulse 0.1s infinite;
+}
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.03);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+.footer{
+    text-align:center;
+    margin-top:20px;
+    color:#999;
+    font-size:12px;
+}
+
+</style>
+
 </head>
+
 <body>
 
-    <h1>今天吃什么？</h1>
-    <ul id="food-list">
-        <li>兰州拉面</li>
-        <li>老上海</li>
-        <li>万阿姨</li>
-        <li>螺蛳粉</li>
-        <li>猪脚饭</li>
-        <li>喵小咖</li>
-        <li>牛蛙饭</li>
-        <li>海南鸡</li>
-        <li>七饱饱</li>
-        <li>一楼饭</li>
-        <li>馄饨</li>
-        <li>重庆小面</li>
-        <li>坤坤大人</li>
-        <li>过桥米线</li>
-    </ul>
+<div class="container">
 
-    <button onclick="pickRandom()">随机抽取</button>
+    <div class="title">
+        🍽️ 今日决策助手
+    </div>
 
-    <div id="result"></div>
+    <div class="card">
 
-    <script>
-        function pickRandom() {
-            const foods = [
-                "兰州拉面", "老上海", "万阿姨", "螺蛳粉",
-                "猪脚饭", "喵小咖", "牛蛙饭", "海南鸡",
-                "七饱饱", "一楼饭", "馄饨", "重庆小面",
-                "坤坤大人", "过桥米线"
-            ];
-            const randomIndex = Math.floor(Math.random() * foods.length);
-            const chosenFood = foods[randomIndex];
-            document.getElementById('result').innerText = '今天你可以吃：' + chosenFood;
+        <h2>今天吃什么？</h2>
+
+        <button onclick="pickFood()">
+            🎲 随机抽取午餐
+        </button>
+
+        <div class="result" id="foodResult">
+            点击开始
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>🧋 今天喝什么？</h2>
+
+        <button onclick="pickMilkTea()">
+            🎲 随机抽取奶茶
+        </button>
+
+        <div class="result" id="milkTeaResult">
+            点击开始
+        </div>
+
+    </div>
+
+    <div class="footer">
+        MyLunchPicker v2.0
+    </div>
+
+</div>
+
+<script>
+
+const foods = [
+
+"兰州拉面",
+"老上海",
+"万阿姨",
+"螺蛳粉",
+"猪脚饭",
+"喵小咖",
+"牛蛙饭",
+"海南鸡",
+"七饱饱",
+"一楼饭",
+"馄饨",
+"重庆小面",
+"坤坤大人",
+"过桥米线"
+
+];
+
+const milkTeas = [
+
+"古茗",
+"喜茶",
+"一点点",
+"茉莉奶白",
+"爷爷不泡茶",
+"瑞幸",
+"霸王茶姬",
+"茶百道",
+"蜜雪冰城",
+"洪都大拇指",
+"茉酸奶",
+"库迪",
+"奈雪的茶"
+
+];
+
+function pickFood(){
+
+    const result =
+    document.getElementById("foodResult");
+
+    result.classList.add("spinning");
+
+    let count = 0;
+
+    const timer = setInterval(()=>{
+
+        const randomIndex =
+        Math.floor(Math.random()*foods.length);
+
+        result.innerText =
+        foods[randomIndex];
+
+        count++;
+
+        if(count >= 20){
+
+            clearInterval(timer);
+
+            result.classList.remove("spinning");
+
+            const finalIndex =
+            Math.floor(Math.random()*foods.length);
+
+            result.innerText =
+            "🍜 " + foods[finalIndex];
+
         }
-    </script>
+
+    },100);
+
+}
+
+function pickMilkTea(){
+
+    const result =
+    document.getElementById("milkTeaResult");
+
+    result.classList.add("spinning");
+
+    let count = 0;
+
+    const timer = setInterval(()=>{
+
+        const randomIndex =
+        Math.floor(Math.random()*milkTeas.length);
+
+        result.innerText =
+        milkTeas[randomIndex];
+
+        count++;
+
+        if(count >= 20){
+
+            clearInterval(timer);
+
+            result.classList.remove("spinning");
+
+            const finalIndex =
+            Math.floor(Math.random()*milkTeas.length);
+
+            result.innerText =
+            "🧋 " + milkTeas[finalIndex];
+
+        }
+
+    },100);
+
+}
+
+</script>
 
 </body>
 </html>
